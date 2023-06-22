@@ -1,0 +1,58 @@
+My notes:
+
+Structure: 
+
+NB commands: 
+dotnet tool install --local dotnet-ef
+dotnet tool uninstall --global dotnet-ef
+dotnet tool install --global dotnet -ef --version 3.0.0
+dotnet tool install --global dotnet-ef
+dotnet add package Microsoft.EntityFrameworkCore.Sqlite
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Swash.AspMetCore
+dotnet ef migrations add Initial
+dotnet ef database update --context *name of context*
+
+Steps: 
+1. Install packages: 
+	1.1 Microsoft.EntityFrameworkCore.Sqlite
+	1.2 Microsoft.EntityFrameworkCore.Design
+	1.3 Swashbuckle.AspNetCore.Swagger
+	1.4 Swashbuckle.AspNetCore.SwaggerGen
+2. Implementing product catalogue: 
+	2.1 Structuring the project 
+		2.1.1 Creating folders -> database: contains classes 
+							   -> models: 
+									     -> product folder: 
+										 -> shared fodler: 
+							   -> Repositories: 
+										 -> Implementations: 
+										 -> understand repositories better: https://codewithshadman.com/repository-pattern-csharp/#:~:text=Repository%20pattern%20C%23%20is%20a,view%20of%20the%20persistence%20layer.
+							   -> Services: 
+										 -> Implementations: 
+							   -> Messages: 
+										 -> DTOs: 
+										 -> Request: 
+										 -> Response: 
+	2.2 Creating the following models: Product, Category & Brand
+		With regards to datetimeoff: https://stackoverflow.com/questions/4331189/datetime-vs-datetimeoffset
+	2.3 Executing database migrations for product catalogue models
+		2.3.1 Appsettings.json
+		2.3.2 Create DBContext in Database folder -> inherit from DBContext
+												  -> dbsets
+		2.3.3 StartUp -> add context to services, + database
+		              -> understand the startup file better https://www.c-sharpcorner.com/article/understanding-startup-class-in-asp-net-core/.
+		2.3.4 Ensure that you have the correct tools, dotnet tool install --global dotnet-ef --version 3.1.0
+		      -> ensure that .NET Core SDK 3.0 is 100%.
+	    2.3.5 -> Execute migrations -> dotnet ef  migrations add *name*
+		      -> dotnet ef database update
+	2.4 Creating catalogue repository 
+		2.4.1 With regards to repos: 
+			  -> we have the implementation and the interface. We create our interfaces first and then our implementations.
+			     Our implementations inherit from our interfaces. https://learn.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
+	2.5 Creating catalogue service: https://www.stevejgordon.co.uk/aspnet-core-dependency-injection-what-is-the-iservicecollection
+		-> transient vs singleton vs scope https://stackoverflow.com/questions/38138100/addtransient-addscoped-and-addsingleton-services-differences
+	2.6 Creating catalogue DTOs
+	    -> https://www.youtube.com/watch?v=F9M9bUq-0Z0
+		-> DTO vs Model member names should be different => security measure.
+	2.7 Implementing product catalogue controller
