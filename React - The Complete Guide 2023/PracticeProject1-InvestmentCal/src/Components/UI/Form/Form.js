@@ -21,16 +21,18 @@ function Form(props) {
 
     const resetHandler = () => {
         setUserInput(INITIAL_INPUT);
+        props.clear();
     };
 
     const inputChangeHandler = (input, value) => {
         setUserInput((previousInput) => {
             return {
                 ...previousInput, 
-                [input]: value
+                [input]: +value
             };
         });
     };
+
 
     return (
         <form className="form" onSubmit={submitHandler}>
