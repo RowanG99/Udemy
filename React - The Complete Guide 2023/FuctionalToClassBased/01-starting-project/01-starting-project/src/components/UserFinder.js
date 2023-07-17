@@ -11,6 +11,7 @@ const DUMMY_USERS = [
 
 class UserFinder extends Component{
     constructor(){
+      super();
         this.state = {
             filteredUsers: DUMMY_USERS,
             searchTerm: ''
@@ -18,7 +19,11 @@ class UserFinder extends Component{
     }
 
     componentDidUpdate(prevProps, prevState){
-
+      if(prevState.searchTerm !== this.state.searchTerm){
+        this.setState({
+          filteredUsers: DUMMY_USERS.filter((users) => users.name.includes(this.state.searchTerm))
+        })
+      }
     }
 
     searchChangeHandler(event){
